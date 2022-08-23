@@ -1,5 +1,5 @@
 nav {
-  height: 120px;
+  height: 90px;
   width: 100%;
   background-color: #4056A1;
   color: #FFFFFF;
@@ -11,8 +11,8 @@ nav {
 }
 
 .headerLogo {
-  font-family: 'Bungee', cursive;
-  font-size: 40px;
+  font-family: 'Bungee', sans-serif;
+  font-size: 90px;
 }
 
 nav span {
