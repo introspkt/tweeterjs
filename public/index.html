@@ -9,8 +9,15 @@
 
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    
+    <!-- Header CSS -->
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
 
+    <!-- NAV CSS -->
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+
+    <!-- Tweets CSS -->
+    <link rel="stylesheet" href="/styles/tweets.css" type="text/css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,6 +67,36 @@
           <div>
             <button type="submit">Tweet</button>
             <output name="counter" class="counter" for="tweet-text">140</output>
+
+            <article>
+              <section class="tweet-container">
+                <span>
+                  <span class="tweet-name">Vibe Librarian</span>
+                </span>
+                <span class="tweet-handle">@introspkt</span>
+              </section>
+        
+              <br>
+        
+              <div class="posted-tweet">
+                <p class="tweeted-text">SLEEPY </p>
+                <!-- <form action= "/" method="GET">
+                  <textarea name="text" id="tweetText" placeholder="hello world"></textarea>
+                </form> -->
+              </div>
+        
+              <footer class="tweet-footer">
+                <div class="tweet-days-ago">
+                  <i>2 days ago</i>
+                </div>
+        
+                <div class="tweet-icons">
+                  <i class="far fa-flag">&nbsp &nbsp</i>
+                  <i class="fas fa-heart">&nbsp &nbsp</i>
+                  <i class="fas fa-retweet"></i>
+                </div>
+              </footer>
+            </article>
           </div>
         </form>
       </section>
