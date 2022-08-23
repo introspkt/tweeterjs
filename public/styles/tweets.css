@@ -1,5 +1,8 @@
 section.tweets {
   width: 100%;
+  padding: 0.5em;
+  background-color: #f4f1ec;
+  border: medium solid black;
 }
 
 
