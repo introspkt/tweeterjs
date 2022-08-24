@@ -31,7 +31,7 @@ $(document).ready(function () {
     },
   ];
 
-  const createTweetElement = function (tweetData) {
+  const createTweetElement = function (tweet) {
     const $toDynamic = `<article class="tweet">
 <header class="tweet-header">
   <div class="user-image">    
@@ -85,4 +85,10 @@ $("#tweeter-form").on("submit", function() {
     });
   });
 });
+
+const loadTweets = function() {
+  $.get("/tweets/").then(function(data) {
+    renderTweets(data);
+  })
+}
 
