@@ -30,6 +30,7 @@ $(document).ready(function () {
       created_at: 1461113959088,
     },
   ];
+
   const createTweetElement = function (tweetData) {
     const $toDynamic = `<article class="tweet">
 <header class="tweet-header">
@@ -70,4 +71,4 @@ $(document).ready(function () {
   renderTweets(tweetData);
 });
 
-
+  
