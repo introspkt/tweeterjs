@@ -3,110 +3,153 @@
   <head>
     <!-- Meta Information -->
     <title>Tweeter - Home Page</title>
-
     <!-- External CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
-    <!-- Header CSS -->
-    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
-
-    <!-- NAV CSS -->
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
-
-    <!-- Tweets CSS -->
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
     <link rel="stylesheet" href="/styles/tweets.css" type="text/css" />
-    
-    <!-- New-Tweets CSS -->
-    <link rel="stylesheet" href="/styles/new-tweets.css" type="text/css" />
 
     <!-- External JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <!-- App JS -->
     <script type="text/javascript" src="/scripts/client.js"></script>
-    <script type="text/javascript" src="./scripts/composer-char-counter.js"></script>
-
-    <!-- Timeago JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
-  
-  
+    <script type="text/javascript" src="/scripts/composer-char-counter.js"></script>
   </head>
 
   <body>
-
-
     <!-- Top nav bar (fixed) -->
-    
     <nav>
-      <nav>
-        <span class="headerLogo">Tweeter</span>
-        <div class="headerWrite">
-          <span><strong>Write </strong> a new tweet</span>
-        <i class="fa-solid fa-angles-down"></i>
+      <span class="headerLogo">tweeter</span>
+      <div class="headerWrite">
+        <span><strong>Write </strong> a new tweet</span>
+        <i class="fas fa-angle-double-down"></i>
       </div>
-
-      </nav>
-    </div>
-
     </nav>
+    
+    <!-- Header, avatar, name -->
     <header>
-      <div>
-          <img src="/images/profile-hex.png"> 
+      <div class="avatar">
+        <img src="/images/profile-hex.png">
       </div>
       <br>
-      <div>
-          <h2>Zarina</h2>
+      <div class="name">
+        <h2>Zarina</h2>
       </div>
-  </header>
+    </header>
 
     <!-- Page-specific (main) content here -->
-    <main class="container">
-
-      <section class="new-tweets">
-        <h2>Compose Tweet</h2>
-        <form method="POST" action="/tweets" class="tweeter-form">
+    <main>
+      <!-- New tweets -->
+      <section class="new-tweet-section">
+        <h2 class="compose-tweet">Compose Tweet</h2>
+        <form action= "/tweets" method="POST" class="new-tweet-form">
           <label for="tweet-text">What are you humming about?</label>
-          <textarea name="text" id="tweet-text"></textarea>
+          <textarea name="text" id="tweetText"></textarea>
+          <div class="tweet-button-counter">
+            <button type="submit" class="tweet-button">Tweet</button>
+            <output name="counter" id="counter" for="tweet-text">140</output>
+          </div>
+        </form>
+      </section>
+
+      <br>
+     <!-- Previous tweets -->
+      <article>
+        <section class="tweet-header">
           <div>
-            <button type="submit">Tweet</button>
-            <output name="counter" class="counter" for="tweet-text">140</output>
-            </div> 
-            </form>
-            </section>
+            <i class="far fa-user">&nbsp</i>
+            <span class="tweet-name">Zarina</span>
+          </div>
+          <span class="tweet-handle">@Zartech</span>
+        </section>
 
-            <article>
-              <section class="tweet-container">
-                <i class="fa-solid fa-user"></i>
-                  <div class="tweet-name">Vibe Librarian</div>
-                <div class="tweet-handle">@introspkt</div>
-              </section>
-        
-              <br>
-        
-              <footer class="tweet-footer">
-                <div class="date-posted">
-                  <p>3 days ago</p>
-                </div>
-              
-        
-                <div class="tweet-icons">
-                  <i class="far fa-flag">&nbsp &nbsp</i>
-                  <i class="fas fa-heart">&nbsp &nbsp</i>
-                  <i class="fas fa-retweet"></i>
-                </div>
+        <br>
 
-              </footer>
-            </article>
-          
+        <div class="posted-tweet">
+          <p class="tweeted-text">Summer is over</p>
+          <!-- <form action= "/" method="GET">
+            <textarea name="text" id="tweetText" placeholder="hello world"></textarea>
+          </form> -->
+        </div>
+
+        <footer class="tweet-footer">
+          <div class="tweet-days-ago">
+            <i>3 days ago</i>
+          </div>
+
+          <div class="tweet-icons">
+            <i class="far fa-flag">&nbsp &nbsp</i>
+            <i class="fas fa-heart">&nbsp &nbsp</i>
+            <i class="fas fa-retweet"></i>
+          </div>
+        </footer>
+      </article>
+      <br>
+
+      <article>
+        <section class="tweet-header">
+          <div>
+            <i class="far fa-user">&nbsp</i>
+            <span class="tweet-name">TechQueen</span>
+          </div>
+          <span class="tweet-handle">@techbaddie</span>
+        </section>
+        <br>
+
+        <div class="posted-tweet">
+          <p class="tweeted-text">Learning to code</p>
+          <!-- <form action= "/" method="GET">
+            <textarea name="text" id="tweetText" placeholder="hello world"></textarea>
+          </form> -->
+        </div>
+        <footer class="tweet-footer">
+          <div class="tweet-days-ago">
+            <i>10 days ago</i>
+          </div>
+          <div class="tweet-icons">
+            <i class="far fa-flag">&nbsp &nbsp</i>
+            <i class="fas fa-heart">&nbsp &nbsp</i>
+            <i class="fas fa-retweet"></i>
+          </div>
+        </footer>
+      </article>
+
+      <br>
+
+      <article>
+        <section class="tweet-header">
+          <div>
+            <i class="far fa-user">&nbsp</i>
+            <span class="tweet-name">Vibes</span>
+          </div>
+          <span class="tweet-handle">@6ixman</span>
+        </section>
+        <br>
+        <div class="posted-tweet">
+          <p class="tweeted-text">Cool tings are happening</p>
+          <!-- <form action= "/" method="GET">
+            <textarea name="text" id="tweetText" placeholder="hello world"></textarea>
+          </form> -->
+        </div>
+        <footer class="tweet-footer">
+          <div class="tweet-days-ago">
+            <i>6 days ago</i>
+          </div>
+          <div class="tweet-icons">
+            <i class="far fa-flag">&nbsp &nbsp</i>
+            <i class="fas fa-heart">&nbsp &nbsp</i>
+            <i class="fas fa-retweet"></i>
+          </div>
+        </footer>
+      </article>
     </main>
   </body>
 </html>

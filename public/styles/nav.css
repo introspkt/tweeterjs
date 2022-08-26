@@ -8,6 +8,8 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  top: 0;
 }
 
 .headerLogo {
@@ -15,12 +17,6 @@ nav {
   font-size: 40px;
 }
 
-nav span {
-  font-family: 'Bungee';
-  height: 150px;
-  padding-left: 1.5em;
-  padding-top: 1.5em;
-}
 
 .headerWrite {
   display: flex;

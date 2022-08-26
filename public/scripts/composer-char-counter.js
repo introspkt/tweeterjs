@@ -1,14 +1,19 @@
 $(document).ready(function() {
-  $('#tweet-text').on('keyup', function() {
- let newTweetLength = $(this).val().length;
- let numsLeft = 140 - newTweetLength 
- //console.log("numsLeft", numsLeft)
- //console.log("newTweetLength", newTweetLength)
- let charCounter = $(this).siblings('div').find('.counter').html(numsLeft);
- if (numsLeft < 0) {
-   charCounter.addClass('tweetTooLong') && alert("Tweet too long");
- } else if (numsLeft >= 0) {
-   charCounter.removeClass('tweetTooLong');
-  }
-});
+  
+  console.log(`Character Counter Loaded`)
+
+  $(`#tweetText`).on('keyup', function() {
+    
+    let tweetLength = $(this).val().length;
+    let counter = $(`#counter`);
+
+    if (tweetLength <= 140) {
+      counter.text(140-tweetLength)
+     
+      $(`#counter`).text(140-tweetLength)
+    } else {
+      console.log(`TOO LONG`);
+      counter.text(`-${0+(tweetLength-140)}`).css("color", "red");
+    }
+  })
 });
