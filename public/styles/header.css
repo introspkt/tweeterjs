@@ -1,13 +1,13 @@
 header {
   display: flex;
   flex-direction: column;
-  height: 520px;
   width: 100%;
   justify-content: center;
   align-items: center;
   align-content: center;
-  padding-top: 40px;
+  padding-top: 90px;
   /* padding-bottom: auto; */
   background-color: #f59623;
   background-image: url(http://www.transparenttextures.com/patterns/shattered.png);
+  
 }

@@ -27,3 +27,6 @@
   color: #FFFFFF;
   padding: 0.15em;
 }
+.tweet-button:hover {
+  box-shadow: 2px 2px 0 1px lightsteelblue;
+}
