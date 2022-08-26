@@ -4,112 +4,67 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-  const tweetData = [
-    {
-      "user": {
-        "name": "Newton",
-        "avatars": "https://i.imgur.com/73hZDYK.png",
-        "handle": "@SirIsaac",
-      },
-      "content": {
-        "text": "If I have seen further it is by standing on the shoulders of giants",
-      },
-      "created_at": 1461116232227,
-    },
+$(document).ready(function () {
 
-    {
-      "user": {
-        "name": "Descartes",
-        "avatars": "https://i.imgur.com/nlhLi3I.png",
-        "handle": "@rd",
-      "content": {
-        "text": "Je pense , donc je suis",
-      },
-      "created_at": 1461113959088,
-    }
-  ]
-
-  $(".tweet-submit").submit(function (event) {
-
-    event.preventDefault();
-    const tweetLength = $("#tweet-text").val().length;
-console.log("tweetLength", tweetLength)
-    let numsLeft = 140 - tweetLength;
-    console.log("numsLeft", numsLeft)
-    if (numsLeft < 0) {
-
-      //charCounter.addClass("tweetTooLong") 
-       alert("Tweet too long");
-    } else if (numsLeft === 140) {
-      alert("Tweet too short")
-      //charCounter.removeClass("tweetTooLong");
-    } else {
-    $.ajax("/tweets", { method: "POST" }).then(function () {
-      console.log($(this).serialize());
-
-    });
-  };
-});
-
-loadTweets()
-})
-  const renderTweets = function(tweets) {
-    // loops through tweets
-    // calls createTweetElement for each tweet
-    // takes return value and appends it to the tweets container
-    for (const data of tweets) {
-      const $tweet = createTweetElement(data);
-      $(function() {
-        $('#tweets-container').append($tweet);
-      });
+  const createShowElement = function (showObject) {
+    const timePosted = timeago.format(showObject.created_at);
+    const markup = `
+      <article>
+        <section class="tweet-header">
+          <div class="tweet-avatar">
+            <img src="${showObject.user.avatars}">
+            <span>&nbsp&nbsp${showObject.user.name}</span>
+          </div>
+          <span class="tweet-handle">${showObject.user.handle}</span>
+        </section>
+        <br>
+        <div class="posted-tweet">
+          <p class="tweeted-text">${showObject.content.text}</p>
+        </div>
+        <footer class="tweet-footer">
+          <div class="tweet-days-ago">
+            <i>${timePosted}</i>
+          </div>
+          <div class="tweet-icons">
+            <i class="far fa-flag">&nbsp &nbsp</i>
+            <i class="fas fa-heart">&nbsp &nbsp</i> 
+            <i class="fas fa-retweet"></i>
+          </div>
+        </footer>
+      </article>
+      `
+    return markup
+  }
+  // loop through the results
+  const renderMarkup = function (showArr) {
+    for (let showObject of showArr) {
+      // create and attach HTML element to the dom
+      const markup = createShowElement(showObject);
+      // Targetting the container and appending the item to it
+      $('#tweets-container').append(markup);
     }
   }
 
- /* Create the tweet element */
-  const createTweetElement = function(tweet) {
-  const $tweet = `<article>
-      <article>
-        <img src=${tweet.user.avatars} />
-        <div class="name">${tweet.user.name}</div>
-        <div class="handle">${tweet.user.handle}</div>
-      </article>
+  // perform request and deal with result
+  const getTweets = function 
 
-      <div class="old-tweet">
-      <p>${tweet.content.text}</p>
-      </div>
+  // send the request to /tweets
+  $.ajax({url: `/tweets/`,
+  method: 'GET'
+})
+.done(results => {
+  renderMarkup(results)
+})
+.fail(err => {console.log(`ERROR: ${err.message}`)})
+.always(()=> {console.log('Request to tweet object has been executed')})
+}
 
-      <footer>
-      <div class="date-posted">
-      <p>${timeago.format(tweetData.created_at)}</p>
-    </div>
+ // catch the form submit
+ $('.new-tweet-form').on('submit', function(event){
+  event.preventDefault();
+  const inputBox = $(this).children('#tweetText');
+  console.log('Submit is being triggered')
+  getTweets();
+})
 
-        <div class="tweet-icons">
-        <i class="fa-solid fa-flag"></i>
-        <i class="fa-solid fa-retweet"></i>
-        <i class="fa-solid fa-heart"></i>
-        </div>
-      </footer>
-      </article>`;
-    return $tweet;
-  };
 
-  $("#tweeter-form").on("submit", function() {
-    $(function() {
-      const $form = $("#tweeter-form");
-      $form.submit(function(event) {
-        event.preventDefault();
-
-        $.ajax({ method: "POST", url: "/tweets/", data: $(this).serialize() })
-        .then(function() {
-          console.log($(this).serialize());
-        });
-      });
-    });
-
-    const loadTweets = function() {
-      $.get("/tweets/").then(function(data) {
-        renderTweets(data);
-      })
-    }
-  
-  
