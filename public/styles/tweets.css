@@ -12,6 +12,7 @@ article {
 
 .tweet:hover {
   box-shadow: 5px 5px 0 #C8C8C8;
+  border: medium solid #4056A1;
 }
 
 .tweet {

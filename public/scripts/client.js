@@ -6,20 +6,20 @@
 
 $(document).ready(function () {
 
-  const createShowElement = function (showObject) {
-    const timePosted = timeago.format(showObject.created_at);
+  const createTwwetElement = function (tweetObject) {
+    const timePosted = timeago.format(tweetObject.created_at);
     const markup = `
       <article>
         <section class="tweet-header">
           <div class="tweet-avatar">
-            <img src="${showObject.user.avatars}">
+            <img src="${tweetObject.user.avatars}">
             <span>&nbsp&nbsp${showObject.user.name}</span>
           </div>
-          <span class="tweet-handle">${showObject.user.handle}</span>
+          <span class="tweet-handle">${tweetObject.user.handle}</span>
         </section>
         <br>
         <div class="posted-tweet">
-          <p class="tweeted-text">${showObject.content.text}</p>
+          <p class="tweeted-text">${tweetObject.content.text}</p>
         </div>
         <footer class="tweet-footer">
           <div class="tweet-days-ago">
@@ -32,18 +32,18 @@ $(document).ready(function () {
           </div>
         </footer>
       </article>
-      `
-    return markup
-  }
+      `;
+    return markup;
+  };
   // loop through the results
-  const renderMarkup = function (showArr) {
-    for (let showObject of showArr) {
+  const renderMarkup = function (tweetArr) {
+    for (let tweetObject of tweetArr) {
       // create and attach HTML element to the dom
-      const markup = createShowElement(showObject);
-      // Targetting the container and appending the item to it
+      const markup = createTweetElement(showObject);
+      // Item container new to old
       $('#tweets-container').append(markup);
     }
-  }
+  };
 
   // perform request and deal with result
   const getTweets = function 
@@ -52,19 +52,70 @@ $(document).ready(function () {
   $.ajax({url: `/tweets/`,
   method: 'GET'
 })
-.done(results => {
-  renderMarkup(results)
+.done(tweetArr => {
+  renderMarkup(tweetArr)
 })
 .fail(err => {console.log(`ERROR: ${err.message}`)})
 .always(()=> {console.log('Request to tweet object has been executed')})
 }
 
+.done(tweetArr => {
+  renderMarkup(tweetArr);
+})
+.fail(err => {
+  console.log(`ERROR: ${err.message}`);
+})
+.always(()=> {
+  console.log('Request to tweet object has been executed');
+});
+};
+
  // catch the form submit
  $('.new-tweet-form').on('submit', function(event){
   event.preventDefault();
-  const inputBox = $(this).children('#tweetText');
   console.log('Submit is being triggered')
-  getTweets();
+
 })
+
+
+    const inputBox = $(this).children('#tweetText');
+    const tweetText = inputBox.val();
+    console.log(tweetText);
+
+    if (tweetText.length > 140) {
+      console.log('REDUCE LENGTH OF TWEET');
+
+    } else if (tweetText.length === 0) {
+      alert('Enter text to post a tweet');
+      console.log('CANNOT CREATE EMPTY TWEET');   
+
+    } else {
+
+      // post to /tweets
+      $.ajax({
+        // url: `/tweets/${tweetText}`,
+        url: `/tweets/`,
+        method: 'POST',
+        data: $(this).serialize()
+      }).then(function() {
+        $('#tweetText').val("");
+        $.get('/tweets/', (data) => {
+          const latestTweet = data.slice(-1).pop();
+          const latestTweetObj = createTweetElement(latestTweet);
+          $('#tweets-container').prepend(latestTweetObj);
+        });
+      })
+      .fail(err => {console.log(`ERROR: ${err.message}`)})
+      .always(()=> {
+        $('#counter').val(140);
+        console.log('Posting tweet object has been executed, and counter reset');
+      });
+    }
+
+
+  getTweets();
+
+  
+
 
 
