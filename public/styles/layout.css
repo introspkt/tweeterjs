@@ -31,6 +31,29 @@ main {
   justify-content: center;
 }
 
+/* ----- Responsive Design Portion ----- */
+
+@media (min-width: 1024px) {
+  body {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  body > header {
+    width: 33%;
+    margin: 140px 5rem;
+  }
+  .container {
+    width: 55%;
+    float: right;
+    margin: 120px 0px;
+  }
+}
+
+
+
+
+
+
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
