@@ -19,7 +19,7 @@ $(document).ready(function () {
         </section>
         <br>
         <div class="posted-tweet">
-          <p class="tweeted-text">${tweetObject.content.text}</p>
+        ${$(`<p class="tweeted-text">`).text${tweetObject.content.text}.html()}
         </div>
         <footer class="tweet-footer">
           <div class="tweet-days-ago">
@@ -70,6 +70,20 @@ $(document).ready(function () {
 });
 };
 
+const errorBanner = function(err) {
+  if (!$('.invalid-tweet').hasClass("toggled-invalid-tweet")) {
+    $('.invalid-tweet').addClass('toggled-invalid-tweet');
+  }
+  $('.invalid-tweet')
+    .text(`Error: ${err}`)
+    .slideDown(250, function() {
+      setTimeout(function() {
+        $('.toggled-invalid-tweet').slideUp(250);
+      }, 3500);
+    });
+};
+
+
  // catch the form submit
  $('.new-tweet-form').on('submit', function(event){
   event.preventDefault();
@@ -84,11 +98,12 @@ $(document).ready(function () {
 
     if (tweetText.length > 140) {
       console.log('REDUCE LENGTH OF TWEET');
-
+      let err = `Reduce length of tweet`;
+      return errorBanner(err);
     } else if (tweetText.length === 0) {
-      alert('Enter text to post a tweet');
-      console.log('CANNOT CREATE EMPTY TWEET');   
-
+      console.log('CANNOT CREATE EMPTY TWEET');
+      let err = `Cannot post an empty tweet`;
+      return errorBanner(err);   
     } else {
 
       // post to /tweets
