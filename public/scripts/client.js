@@ -35,80 +35,65 @@ $(document).ready(function () {
       `;
     return markup;
   };
-  // loop through the results
-  const renderMarkup = function (tweetArr) {
+  const renderMarkup = function(tweetArr) {
     for (let tweetObject of tweetArr) {
-      // create and attach HTML element to the dom
-      const markup = createTweetElement(showObject);
-      // Item container new to old
-      $('#tweets-container').append(markup);
+      // Create HTML element
+      const markup = createTweetElement(tweetObject);
+      // Append item to container, newest to oldest
+      $('#tweets-container').prepend(markup);
     }
   };
 
-  // perform request and deal with result
-  const getTweets = function 
+  const getTweets = function() {
+    // Get request - old tweets
+    $.ajax({
+      url: `/tweets/`,
+      method: 'GET'
+    })
+      .done(tweetArr => {
+        renderMarkup(tweetArr);
+      })
+      .fail(err => {
+        console.log(`ERROR: ${err.message}`);
+      })
+      .always(()=> {
+        console.log('Request to tweet object has been executed');
+      });
+  };
 
-  // send the request to /tweets
-  $.ajax({url: `/tweets/`,
-  method: 'GET'
-})
-.done(tweetArr => {
-  renderMarkup(tweetArr)
-})
-.fail(err => {console.log(`ERROR: ${err.message}`)})
-.always(()=> {console.log('Request to tweet object has been executed')})
-}
+  const errorBanner = function(err) {
+    if (!$('.invalid-tweet').hasClass("toggled-invalid-tweet")) {
+      $('.invalid-tweet').addClass('toggled-invalid-tweet');
+    }
+    $('.invalid-tweet')
+      .text(`Error: ${err}`)
+      .slideDown(250, function() {
+        setTimeout(function() {
+          $('.toggled-invalid-tweet').slideUp(250);
+        }, 3500);
+      });
+  };
 
-.done(tweetArr => {
-  renderMarkup(tweetArr);
-})
-.fail(err => {
-  console.log(`ERROR: ${err.message}`);
-})
-.always(()=> {
-  console.log('Request to tweet object has been executed');
-});
-};
+  $('.new-tweet-form').on('submit', function(event) {
+    event.preventDefault();
+    console.log('Submit is being triggered');
 
-const errorBanner = function(err) {
-  if (!$('.invalid-tweet').hasClass("toggled-invalid-tweet")) {
-    $('.invalid-tweet').addClass('toggled-invalid-tweet');
-  }
-  $('.invalid-tweet')
-    .text(`Error: ${err}`)
-    .slideDown(250, function() {
-      setTimeout(function() {
-        $('.toggled-invalid-tweet').slideUp(250);
-      }, 3500);
-    });
-};
-
-
- // catch the form submit
- $('.new-tweet-form').on('submit', function(event){
-  event.preventDefault();
-  console.log('Submit is being triggered')
-
-})
-
-
+    // Post request - new tweets
     const inputBox = $(this).children('#tweetText');
     const tweetText = inputBox.val();
-    console.log(tweetText);
+    console.log(`Tweet: ${tweetText}`);
 
     if (tweetText.length > 140) {
-      console.log('REDUCE LENGTH OF TWEET');
-      let err = `Reduce length of tweet`;
+      console.log('REDUCE LENGTH OF YOUR TWEET');
+      let err = `Reduce the length of your tweet`;
       return errorBanner(err);
     } else if (tweetText.length === 0) {
-      console.log('CANNOT CREATE EMPTY TWEET');
+      console.log('CANNOT POST AN EMPTY TWEET');
       let err = `Cannot post an empty tweet`;
-      return errorBanner(err);   
+      return errorBanner(err);
     } else {
-
       // post to /tweets
       $.ajax({
-        // url: `/tweets/${tweetText}`,
         url: `/tweets/`,
         method: 'POST',
         data: $(this).serialize()
@@ -120,17 +105,14 @@ const errorBanner = function(err) {
           $('#tweets-container').prepend(latestTweetObj);
         });
       })
-      .fail(err => {console.log(`ERROR: ${err.message}`)})
-      .always(()=> {
-        $('#counter').val(140);
-        console.log('Posting tweet object has been executed, and counter reset');
-      });
+        .fail(err => {
+          console.log(`ERROR: ${err.message}`);
+        })
+        .always(()=> {
+          $('#counter').val(140);
+          console.log('Posting tweet object has been executed, and counter reset');
+        });
     }
-
-
+  });
   getTweets();
-
-  
-
-
-
+});

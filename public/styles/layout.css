@@ -6,7 +6,7 @@
 html {
   box-sizing: border-box;
 }
-/*, *:before, *:after {
+*, *:before, *:after {
   box-sizing: inherit;
 }
 
@@ -22,7 +22,7 @@ body {
 }
 
 main {
-  width: 90%;
+  /*width: 90%;
   background-color: #f4f1ec;
   position: relative;
   display: flex;
@@ -33,24 +33,52 @@ main {
 
 /* ----- Responsive Design Portion ----- */
 
-@media (min-width: 1024px) {
+@media only screen and (min-width: 960px) {
   body {
+    font-size: 24px;
+    display: flex;
     flex-direction: row;
+    align-items: flex-start;
     justify-content: space-between;
   }
-  body > header {
-    width: 33%;
-    margin: 140px 5rem;
+  .headerLogo {
+    font-size: 40px;
   }
-  .container {
+  nav {
+    height: 75px;
+  }
+  main {
     width: 55%;
-    float: right;
-    margin: 120px 0px;
+    padding-top: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .profile-header {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #tweets-container {
+    width: 90%;
+    padding: 0.5em;
+  }
+  article {
+    padding: 0.5em;
+  }
+  .tweet-footer {
+    font-size: 16px;
+  }
+  .tweeted-text {
+    font-size: 20px;
+  }
+  #tweetText {
+    font-size: 0.8em;
   }
 }
-
-
-
 
 
 
